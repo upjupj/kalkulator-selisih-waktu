@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Difference Calculator</title>
+    <style>
+        /* Reset margin dan padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Styling body */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f3f4f6;
+            color: #333;
+        }
+
+        /* Styling container */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h2 {
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #357ab8;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Time Difference Calculator</h2>
+        <label for="startTime">Waktu Awal (HH:MM):</label>
+        <input type="time" id="startTime" required>
+
+        <label for="endTime">Waktu Akhir (HH:MM):</label>
+        <input type="time" id="endTime" required>
+
+        <button onclick="calculateDifference()">Hitung Selisih</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateDifference() {
+            const startTime = document.getElementById("startTime").value;
+            const endTime = document.getElementById("endTime").value;
+
+            if (!startTime || !endTime) {
+                document.getElementById("result").textContent = "Silakan masukkan waktu awal dan akhir.";
+                return;
+            }
+
+            const [startHour, startMinute] = startTime.split(":").map(Number);
+            const [endHour, endMinute] = endTime.split(":").map(Number);
+
+            const startTotalMinutes = startHour * 60 + startMinute;
+            const endTotalMinutes = endHour * 60 + endMinute;
+
+            let difference = endTotalMinutes - startTotalMinutes;
+
+            if (difference < 0) {
+                difference += 1440; // menambahkan 24 jam (1440 menit) jika waktu akhir lebih awal dari waktu awal
+            }
+
+            const hours = Math.floor(difference / 60);
+            const minutes = difference % 60;
+
+            document.getElementById("result").textContent = 
+                Selisih waktu adalah ${hours} jam ${minutes} menit.;
+        }
+    </script>
+</body>
+</html>
